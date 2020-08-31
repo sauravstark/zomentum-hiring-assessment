@@ -1,5 +1,6 @@
 const TicketModel = require('../models/TicketModel');
 const TimingModel = require('../models/TimingModel');
+const ObjectID = require('mongodb').ObjectID;
 
 exports.book = (req, res) => {
     let errors = [];
@@ -262,3 +263,35 @@ exports.remove = (req, res) => {
         })
     }
 };
+
+exports.user = (req, res) => {
+    if (typeof(req.body.id) !== 'string' || !ObjectID.isValid(req.body.id)) {
+        res.send({
+            status: "ERR",
+            message: "Invalid ID",
+        })
+    } else {
+        TicketModel.findById(req.body.id, (err, doc) => {
+            if (err) {
+                res.send({
+                    status: "ERR",
+                    message: "Could not find record",
+                })
+            } else if (doc == null) {
+                res.send({
+                    status: "ERR",
+                    message: "No record found"
+                })
+            } else {
+                res.send({
+                    status: "OK",
+                    message: "Record found",
+                    user: {
+                        name: doc.user_name,
+                        contact: doc.user_contact,
+                    }
+                })
+            }
+        })
+    }
+}

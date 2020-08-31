@@ -8,5 +8,6 @@ router.post("/book/", TicketController.book);
 router.post("/update/", TicketController.update);
 router.get("/all/", TicketController.all);
 router.post("/remove/", TicketController.remove);
+router.get("/user-detail/", TicketController.user);
 
 module.exports = router;
