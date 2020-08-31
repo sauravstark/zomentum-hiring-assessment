@@ -5,5 +5,6 @@ var router = express.Router();
 
 router.post("/book/", TicketController.book);
 router.post("/update/", TicketController.update);
+router.get("/all/", TicketController.all);
 
 module.exports = router;

@@ -156,3 +156,60 @@ exports.update = (req, res) => {
         })
     }
 };
+
+exports.all = (req, res) => {
+    let errors = [];
+    if (typeof (req.body.movie) != 'string') {
+        errors.push("Invalid Movie Name")
+    }
+    if (typeof (req.body.time) != 'string' || Date.parse(req.body.old_time) === NaN) {
+        errors.push("Invalid Time");
+    }
+    if (errors.length > 0) {
+        res.send({
+            status: "ERR",
+            message: errors,
+        });
+    } else {
+        TimingModel.findOne({ movie: req.body.movie, time: req.body.time }, (err, movie) => {
+            if (err) {
+                res.send({
+                    status: "ERR",
+                    message: "Could not search for ticket",
+                });
+            } else if (movie == null) {
+                res.send({
+                    status: "ERR",
+                    message: "Movie or Time does not match",
+                });
+            } else {
+                TicketModel.find({ timing: movie._id }, (err, ticket) => {
+                    if (err) {
+                        res.send({
+                            status: "ERR",
+                            message: "Could not search for ticket",
+                        });
+                    } else if (ticket.length === 0) {
+                        res.send({
+                            status: "OK",
+                            message: "No tickets booked for this timing",
+                        });
+                    } else {
+                        res.send({
+                            status: "OK",
+                            message: "Bookings Found",
+                            booking: ticket.map(el => { return {
+                                user: el.user_name,
+                                contact: el.user_contact,
+                                movie: movie.movie,
+                                director: movie.director,
+                                time: movie.time,
+                            }})
+                        });
+                    }
+                })
+            }
+        })
+    }
+    
+}

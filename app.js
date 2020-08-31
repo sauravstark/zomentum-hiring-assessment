@@ -24,9 +24,9 @@ app.listen(port, () => {
 /*
                             -----------  DONE  ----------
 ● An endpoint to book a ticket using a user’s name, phone number, and timings.
+● An endpoint to update a ticket timing.
 
                             -----------  TODO  ----------
-● An endpoint to update a ticket timing.
 ● An endpoint to view all the tickets for a particular time.
 ● An endpoint to delete a particular ticket.
 ● An endpoint to view the user’s details based on the ticket id.
