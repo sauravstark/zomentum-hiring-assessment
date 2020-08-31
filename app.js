@@ -25,10 +25,10 @@ app.listen(port, () => {
                             -----------  DONE  ----------
 ● An endpoint to book a ticket using a user’s name, phone number, and timings.
 ● An endpoint to update a ticket timing.
-
-                            -----------  TODO  ----------
 ● An endpoint to view all the tickets for a particular time.
 ● An endpoint to delete a particular ticket.
+
+                            -----------  TODO  ----------
 ● An endpoint to view the user’s details based on the ticket id.
 ● Mark a ticket as expired if there is a diff of 8 hours between the ticket timing and current time.
 ● Note: For a particular timing, a maximum of 20 tickets can be booked.
